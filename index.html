@@ -1,55 +1,615 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Job Application Tracker</title>
-    <link rel="shortcut icon" href="./assite/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./assite/logo.png" type="image/x-icon" />
+
     <!-- Google Font Here -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
 
-<!-- Css file Here -->
- <link rel="stylesheet" href="./css/style.css">
- <!-- Tailwind and Daisy Ui  -->
-   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-   <!-- DaisyUI Link -->
-<link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="./style/style.css" />
+  </head>
 
-</head>
-<body class="mx-auto max-w-7xl">
-    <h1 class="bg-amber-400 ">Hello</h1>
-   <!-- Header Section started here-->
-   <header >
-    <div class=" mx-auto w-[95%] ">
-        <h1 class="text-[#002C5C] text-4xl font-bold">Job Application Tracker</h1>
-    <div class="grid grid-cols-3 gap-5 mt-5">
-        <div class=" border border-[#F1F2F4] bg-white p-5 rounded-md">
-            <p class="text-[#323B49] font-medium text-sm " >Total</p>
-            <p class="text-2xl font-bold text-[#002B70]"id="total-counter" >0</p>
+  <body class="bg-[#F5F7FA] max-w-7xl mx-auto">
+    <header class="w-[95%] mt-6 md:mt-16 mx-auto flex flex-col gap-6">
+      <h1 class="text-[#1A2B3C] font-bold text-[34px] tracking-tight">
+        Job Application Tracker
+      </h1>
+      <div class="grid grid-cols-3 gap-5">
+        <div
+          class="bg-white p-5 rounded-xl border-[#E2E8F0] border-[1px] shadow-sm hover:shadow-md transition-shadow duration-200"
+        >
+          <div>
+            <p class="text-[#4A5568] text-[15px] font-medium mb-1">
+              Total Applications
+            </p>
+            <p id="total" class="font-bold text-3xl text-[#2563EB]">8</p>
+          </div>
         </div>
-
-        <div class=" border border-[#F1F2F4] bg-white p-5 rounded-md">
-            <p class="text-[#323B49] font-medium text-sm " >Interview</p>
-            <p class="text-2xl font-bold text-[#10B981]" id="interview-counter">0</p>
+        <div
+          class="bg-white p-5 rounded-xl border-[#E2E8F0] border-[1px] shadow-sm hover:shadow-md transition-shadow duration-200"
+        >
+          <div>
+            <p class="text-[#4A5568] text-[15px] font-medium mb-1">Interview</p>
+            <p id="InterviewCount" class="font-bold text-3xl text-[#059669]">
+              0
+            </p>
+          </div>
         </div>
-
-        <div class=" border border-[#F1F2F4] bg-white p-5 rounded-md">
-            <p class="text-[#323B49] font-medium text-sm " >Rejected</p>
-            <p class="text-2xl font-bold text-[#EF4444]" id="rejected-counter">0</p>
+        <div
+          class="bg-white p-5 rounded-xl border-[#E2E8F0] border-[1px] shadow-sm hover:shadow-md transition-shadow duration-200"
+        >
+          <div>
+            <p class="text-[#4A5568] text-[15px] font-medium mb-1">Rejected</p>
+            <p id="RejectedCount" class="font-bold text-3xl text-[#DC2626]">
+              0
+            </p>
+          </div>
         </div>
+      </div>
+    </header>
+    <hr class="w-[95%] mx-auto my-8 border-[#E2E8F0] border-t-[1px]" />
 
+    <!-- main section -->
+    <div
+      class="w-[95%] mx-auto sticky top-0 bg-white/80 backdrop-blur-md py-5 px-2 my-8 border-b border-[#E2E8F0] shadow-sm"
+    >
+      <div class="w-[95%] mx-auto">
+        <div class="flex justify-between items-center mb-5">
+          <h1 class="text-[#1A2B3C] text-xl font-semibold">Available Jobs</h1>
+          <div class="bg-[#F1F5F9] px-4 py-2 rounded-full">
+            <p class="text-[#4A5568] font-medium">
+              <span id="total-2" class="text-[#2563EB] font-bold">0</span> jobs
+            </p>
+          </div>
+        </div>
+        <nav class="flex gap-3">
+          <button
+            onclick="toggleButtonStyle('all_btn')"
+            id="all_btn"
+            class="px-5 py-2.5 bg-[#2563EB] text-white rounded-lg font-medium text-sm cursor-pointer transition-all duration-200 hover:bg-[#2563EB] active:scale-95"
+          >
+            All
+          </button>
+          <button
+            onclick="toggleButtonStyle('Interview_btn')"
+            id="Interview_btn"
+            class="px-5 py-2.5 bg-white text-[#4A5568] border border-[#E2E8F0] rounded-lg font-medium text-sm cursor-pointer transition-all duration-200 hover:bg-[#F8FAFC] hover:border-[#CBD5E0] active:scale-95"
+          >
+            Interview
+          </button>
+          <button
+            onclick="toggleButtonStyle('Rejected_btn')"
+            id="Rejected_btn"
+            class="px-5 py-2.5 bg-white text-[#4A5568] border border-[#E2E8F0] rounded-lg font-medium text-sm cursor-pointer transition-all duration-200 hover:bg-[#F8FAFC] hover:border-[#CBD5E0] active:scale-95"
+          >
+            Rejected
+          </button>
+        </nav>
+      </div>
     </div>
-    <hr class=" text-[#E6E7E9] border-1 my-6">
-    </div>
-</header>
+    <main class="pb-10 w-[95%] mx-auto">
+      <!-- No jobs available -->
+      <section
+        id="noJobs"
+        class="bg-white p-8 rounded-xl border border-[#E2E8F0] min-h-[50vh] hidden"
+      >
+        <div class="flex justify-center items-center min-h-[50vh]">
+          <div
+            class="flex flex-col justify-center items-center text-center max-w-md"
+          >
+            <img
+              src="./asstes/jobs.png"
+              alt="No jobs"
+              class="w-48 h-48 mb-6 opacity-70"
+            />
+            <h2 class="text-[#1A2B3C] text-2xl font-semibold mb-2">
+              No jobs available
+            </h2>
+            <p class="text-[#718096] text-base">
+              Check back soon for new job opportunities
+            </p>
+          </div>
+        </div>
+      </section>
 
-   <!-- Header Section started here-->
+      <!-- filtersection Dinamic-->
+      <section id="filtered-section" class="hidden space-y-4">
+        
 
-  
 
+      </section>
 
-</body>
+      <!-- all jobs section -->
+      <section id="all_jobs" class="flex flex-col gap-4">
+        <!-- Job Card 1 -->
+        <div
+          class="bg-white p-6 rounded-xl border border-[#E2E8F0] flex justify-between hover:shadow-md transition-shadow duration-200"
+        >
+          <div class="space-y-4 flex-1">
+            <div>
+              <h2
+                class="text-[#1A2B3C] text-xl font-semibold mb-1 job-title-random-1"
+              >
+                Mobile First Corp
+              </h2>
+              <p class="text-[#4A5568] text-base job-name-random-2">
+                React Native Developer
+              </p>
+            </div>
+            <p
+              class="text-[#718096] text-sm bg-[#F1F5F9] inline-block px-3 py-1 rounded-full job-salary-random-3"
+            >
+              Remote • Full-time • $130,000 - $175,000
+            </p>
+            <div class="space-y-3">
+              <button
+                class="px-4 py-2 bg-[#EFF6FF] rounded-lg text-[#1A2B3C] text-sm font-medium uppercase tracking-wide job-status-random-4"
+              >
+                Not Applied
+              </button>
+              <p
+                class="text-[#4A5568] text-base leading-relaxed job-description-random-5"
+              >
+                Build cross-platform mobile applications using React Native.
+                Work on products used by millions of users worldwide.
+              </p>
+            </div>
+            <div class="flex gap-3 pt-2">
+              <button
+                class="Interview-btn-random-6 px-5 py-2.5 border-2 border-[#059669] bg-white rounded-lg font-semibold text-sm text-[#059669] uppercase cursor-pointer transition-all duration-200 hover:bg-[#059669] hover:text-white active:scale-95"
+              >
+                Interview
+              </button>
+              <button
+                class="Rejected-btn-random-7 px-5 py-2.5 border-2 border-[#DC2626] bg-white rounded-lg font-semibold text-sm text-[#DC2626] uppercase cursor-pointer transition-all duration-200 hover:bg-[#DC2626] hover:text-white active:scale-95"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+          <div class="ml-6">
+            <div
+              class="w-10 h-10 border-2 border-[#E2E8F0] rounded-full flex justify-center items-center cursor-pointer hover:bg-[#FEE2E2] hover:border-[#FCA5A5] transition-all duration-200 group"
+            >
+              <img
+                class="delete-item-random-9 w-5 h-5 opacity-60 group-hover:opacity-100 transition-opacity duration-200"
+                src="./asstes/Delete.png"
+                alt="Delete"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Job Card 2 -->
+        <div
+          class="bg-white p-6 rounded-xl border border-[#E2E8F0] flex justify-between hover:shadow-md transition-shadow duration-200"
+        >
+          <div class="space-y-4 flex-1">
+            <div>
+              <h2
+                class="text-[#1A2B3C] text-xl font-semibold mb-1 job-title-random-10"
+              >
+                WebFlow Agency
+              </h2>
+              <p class="text-[#4A5568] text-base job-name-random-11">
+                Web Designer & Developer
+              </p>
+            </div>
+            <p
+              class="text-[#718096] text-sm bg-[#F1F5F9] inline-block px-3 py-1 rounded-full job-salary-random-12"
+            >
+              Los Angeles, CA • Part-time • $80,000 - $120,000
+            </p>
+            <div class="space-y-3">
+              <button
+                class="px-4 py-2 bg-[#EFF6FF] rounded-lg text-[#1A2B3C] text-sm font-medium uppercase tracking-wide job-status-random-13"
+              >
+                Not Applied
+              </button>
+              <p
+                class="text-[#4A5568] text-base leading-relaxed job-description-random-14"
+              >
+                Create stunning web experiences for high-profile clients. Must
+                have portfolio and experience with modern web design trends.
+              </p>
+            </div>
+            <div class="flex gap-3 pt-2">
+              <button
+                class="Interview-btn-random-15 px-5 py-2.5 border-2 border-[#059669] bg-white rounded-lg font-semibold text-sm text-[#059669] uppercase cursor-pointer transition-all duration-200 hover:bg-[#059669] hover:text-white active:scale-95"
+              >
+                Interview
+              </button>
+              <button
+                class="Rejected-btn-random-16 px-5 py-2.5 border-2 border-[#DC2626] bg-white rounded-lg font-semibold text-sm text-[#DC2626] uppercase cursor-pointer transition-all duration-200 hover:bg-[#DC2626] hover:text-white active:scale-95"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+          <div class="ml-6">
+            <div
+              class="w-10 h-10 border-2 border-[#E2E8F0] rounded-full flex justify-center items-center cursor-pointer hover:bg-[#FEE2E2] hover:border-[#FCA5A5] transition-all duration-200 group"
+            >
+              <img
+                class="delete-item-random-17 w-5 h-5 opacity-60 group-hover:opacity-100 transition-opacity duration-200"
+                src="./asstes/Delete.png"
+                alt="Delete"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Job Card 3 -->
+        <div
+          class="bg-white p-6 rounded-xl border border-[#E2E8F0] flex justify-between hover:shadow-md transition-shadow duration-200"
+        >
+          <div class="space-y-4 flex-1">
+            <div>
+              <h2
+                class="text-[#1A2B3C] text-xl font-semibold mb-1 job-title-random-18"
+              >
+                DataViz Solutions
+              </h2>
+              <p class="text-[#4A5568] text-base job-name-random-19">
+                Data Visualization Specialist
+              </p>
+            </div>
+            <p
+              class="text-[#718096] text-sm bg-[#F1F5F9] inline-block px-3 py-1 rounded-full job-salary-random-20"
+            >
+              Boston, MA • Full-time • $125,000 - $165,000
+            </p>
+            <div class="space-y-3">
+              <button
+                class="px-4 py-2 bg-[#EFF6FF] rounded-lg text-[#1A2B3C] text-sm font-medium uppercase tracking-wide job-status-random-21"
+              >
+                Not Applied
+              </button>
+              <p
+                class="text-[#4A5568] text-base leading-relaxed job-description-random-22"
+              >
+                Transform complex data into compelling visualizations. Required
+                skills: D3.js, React, and strong analytical thinking.
+              </p>
+            </div>
+            <div class="flex gap-3 pt-2">
+              <button
+                class="Interview-btn-random-23 px-5 py-2.5 border-2 border-[#059669] bg-white rounded-lg font-semibold text-sm text-[#059669] uppercase cursor-pointer transition-all duration-200 hover:bg-[#059669] hover:text-white active:scale-95"
+              >
+                Interview
+              </button>
+              <button
+                class="Rejected-btn-random-24 px-5 py-2.5 border-2 border-[#DC2626] bg-white rounded-lg font-semibold text-sm text-[#DC2626] uppercase cursor-pointer transition-all duration-200 hover:bg-[#DC2626] hover:text-white active:scale-95"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+          <div class="ml-6">
+            <div
+              class="w-10 h-10 border-2 border-[#E2E8F0] rounded-full flex justify-center items-center cursor-pointer hover:bg-[#FEE2E2] hover:border-[#FCA5A5] transition-all duration-200 group"
+            >
+              <img
+                class="delete-item-random-25 w-5 h-5 opacity-60 group-hover:opacity-100 transition-opacity duration-200"
+                src="./asstes/Delete.png"
+                alt="Delete"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Job Card 4 -->
+        <div
+          class="bg-white p-6 rounded-xl border border-[#E2E8F0] flex justify-between hover:shadow-md transition-shadow duration-200"
+        >
+          <div class="space-y-4 flex-1">
+            <div>
+              <h2
+                class="text-[#1A2B3C] text-xl font-semibold mb-1 job-title-random-26"
+              >
+                CloudFirst Inc
+              </h2>
+              <p class="text-[#4A5568] text-base job-name-random-27">
+                Backend Developer
+              </p>
+            </div>
+            <p
+              class="text-[#718096] text-sm bg-[#F1F5F9] inline-block px-3 py-1 rounded-full job-salary-random-28"
+            >
+              Seattle, WA • Full-time • $140,000 - $190,000
+            </p>
+            <div class="space-y-3">
+              <button
+                class="px-4 py-2 bg-[#EFF6FF] rounded-lg text-[#1A2B3C] text-sm font-medium uppercase tracking-wide job-status-random-29"
+              >
+                Not Applied
+              </button>
+              <p
+                class="text-[#4A5568] text-base leading-relaxed job-description-random-30"
+              >
+                Design and maintain scalable backend systems using Python and
+                AWS. Work with modern DevOps practices and cloud infrastructure.
+              </p>
+            </div>
+            <div class="flex gap-3 pt-2">
+              <button
+                class="Interview-btn-random-31 px-5 py-2.5 border-2 border-[#059669] bg-white rounded-lg font-semibold text-sm text-[#059669] uppercase cursor-pointer transition-all duration-200 hover:bg-[#059669] hover:text-white active:scale-95"
+              >
+                Interview
+              </button>
+              <button
+                class="Rejected-btn-random-32 px-5 py-2.5 border-2 border-[#DC2626] bg-white rounded-lg font-semibold text-sm text-[#DC2626] uppercase cursor-pointer transition-all duration-200 hover:bg-[#DC2626] hover:text-white active:scale-95"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+          <div class="ml-6">
+            <div
+              class="w-10 h-10 border-2 border-[#E2E8F0] rounded-full flex justify-center items-center cursor-pointer hover:bg-[#FEE2E2] hover:border-[#FCA5A5] transition-all duration-200 group"
+            >
+              <img
+                class="delete-item-random-33 w-5 h-5 opacity-60 group-hover:opacity-100 transition-opacity duration-200"
+                src="./asstes/Delete.png"
+                alt="Delete"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Job Card 5 -->
+        <div
+          class="bg-white p-6 rounded-xl border border-[#E2E8F0] flex justify-between hover:shadow-md transition-shadow duration-200"
+        >
+          <div class="space-y-4 flex-1">
+            <div>
+              <h2
+                class="text-[#1A2B3C] text-xl font-semibold mb-1 job-title-random-34"
+              >
+                Innovation Labs
+              </h2>
+              <p class="text-[#4A5568] text-base job-name-random-35">
+                UI/UX Engineer
+              </p>
+            </div>
+            <p
+              class="text-[#718096] text-sm bg-[#F1F5F9] inline-block px-3 py-1 rounded-full job-salary-random-36"
+            >
+              Austin, TX • Full-time • $110,000 - $150,000
+            </p>
+            <div class="space-y-3">
+              <button
+                class="px-4 py-2 bg-[#EFF6FF] rounded-lg text-[#1A2B3C] text-sm font-medium uppercase tracking-wide job-status-random-37"
+              >
+                Not Applied
+              </button>
+              <p
+                class="text-[#4A5568] text-base leading-relaxed job-description-random-38"
+              >
+                Create beautiful and functional user interfaces for our suite of
+                products. Strong design skills and frontend development
+                expertise required.
+              </p>
+            </div>
+            <div class="flex gap-3 pt-2">
+              <button
+                class="Interview-btn-random-39 px-5 py-2.5 border-2 border-[#059669] bg-white rounded-lg font-semibold text-sm text-[#059669] uppercase cursor-pointer transition-all duration-200 hover:bg-[#059669] hover:text-white active:scale-95"
+              >
+                Interview
+              </button>
+              <button
+                class="Rejected-btn-random-40 px-5 py-2.5 border-2 border-[#DC2626] bg-white rounded-lg font-semibold text-sm text-[#DC2626] uppercase cursor-pointer transition-all duration-200 hover:bg-[#DC2626] hover:text-white active:scale-95"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+          <div class="ml-6">
+            <div
+              class="w-10 h-10 border-2 border-[#E2E8F0] rounded-full flex justify-center items-center cursor-pointer hover:bg-[#FEE2E2] hover:border-[#FCA5A5] transition-all duration-200 group"
+            >
+              <img
+                class="delete-item-random-41 w-5 h-5 opacity-60 group-hover:opacity-100 transition-opacity duration-200"
+                src="./asstes/Delete.png"
+                alt="Delete"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Job Card 6 -->
+        <div
+          class="bg-white p-6 rounded-xl border border-[#E2E8F0] flex justify-between hover:shadow-md transition-shadow duration-200"
+        >
+          <div class="space-y-4 flex-1">
+            <div>
+              <h2
+                class="text-[#1A2B3C] text-xl font-semibold mb-1 job-title-random-42"
+              >
+                MegaCorp Solutions
+              </h2>
+              <p class="text-[#4A5568] text-base job-name-random-43">
+                JavaScript Developer
+              </p>
+            </div>
+            <p
+              class="text-[#718096] text-sm bg-[#F1F5F9] inline-block px-3 py-1 rounded-full job-salary-random-44"
+            >
+              New York, NY • Full-time • $130,000 - $170,000
+            </p>
+            <div class="space-y-3">
+              <button
+                class="px-4 py-2 bg-[#EFF6FF] rounded-lg text-[#1A2B3C] text-sm font-medium uppercase tracking-wide job-status-random-45"
+              >
+                Not Applied
+              </button>
+              <p
+                class="text-[#4A5568] text-base leading-relaxed job-description-random-46"
+              >
+                Build enterprise applications with JavaScript and modern
+                frameworks. We offer competitive compensation, health insurance,
+                and professional development opportunities.
+              </p>
+            </div>
+            <div class="flex gap-3 pt-2">
+              <button
+                class="Interview-btn-random-47 px-5 py-2.5 border-2 border-[#059669] bg-white rounded-lg font-semibold text-sm text-[#059669] uppercase cursor-pointer transition-all duration-200 hover:bg-[#059669] hover:text-white active:scale-95"
+              >
+                Interview
+              </button>
+              <button
+                class="Rejected-btn-random-48 px-5 py-2.5 border-2 border-[#DC2626] bg-white rounded-lg font-semibold text-sm text-[#DC2626] uppercase cursor-pointer transition-all duration-200 hover:bg-[#DC2626] hover:text-white active:scale-95"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+          <div class="ml-6">
+            <div
+              class="w-10 h-10 border-2 border-[#E2E8F0] rounded-full flex justify-center items-center cursor-pointer hover:bg-[#FEE2E2] hover:border-[#FCA5A5] transition-all duration-200 group"
+            >
+              <img
+                class="delete-item-random-49 w-5 h-5 opacity-60 group-hover:opacity-100 transition-opacity duration-200"
+                src="./asstes/Delete.png"
+                alt="Delete"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Job Card 7 -->
+        <div
+          class="bg-white p-6 rounded-xl border border-[#E2E8F0] flex justify-between hover:shadow-md transition-shadow duration-200"
+        >
+          <div class="space-y-4 flex-1">
+            <div>
+              <h2
+                class="text-[#1A2B3C] text-xl font-semibold mb-1 job-title-random-50"
+              >
+                StartupXYZ
+              </h2>
+              <p class="text-[#4A5568] text-base job-name-random-51">
+                Full Stack Engineer
+              </p>
+            </div>
+            <p
+              class="text-[#718096] text-sm bg-[#F1F5F9] inline-block px-3 py-1 rounded-full job-salary-random-52"
+            >
+              Remote • Full-time • $120,000 - $160,000
+            </p>
+            <div class="space-y-3">
+              <button
+                class="px-4 py-2 bg-[#EFF6FF] rounded-lg text-[#1A2B3C] text-sm font-medium uppercase tracking-wide job-status-random-53"
+              >
+                Not Applied
+              </button>
+              <p
+                class="text-[#4A5568] text-base leading-relaxed job-description-random-54"
+              >
+                Join our fast-growing startup and work on our core platform.
+                Experience with Node.js and React required. Great benefits and
+                equity package included.
+              </p>
+            </div>
+            <div class="flex gap-3 pt-2">
+              <button
+                class="Interview-btn-random-55 px-5 py-2.5 border-2 border-[#059669] bg-white rounded-lg font-semibold text-sm text-[#059669] uppercase cursor-pointer transition-all duration-200 hover:bg-[#059669] hover:text-white active:scale-95"
+              >
+                Interview
+              </button>
+              <button
+                class="Rejected-btn-random-56 px-5 py-2.5 border-2 border-[#DC2626] bg-white rounded-lg font-semibold text-sm text-[#DC2626] uppercase cursor-pointer transition-all duration-200 hover:bg-[#DC2626] hover:text-white active:scale-95"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+          <div class="ml-6">
+            <div
+              class="w-10 h-10 border-2 border-[#E2E8F0] rounded-full flex justify-center items-center cursor-pointer hover:bg-[#FEE2E2] hover:border-[#FCA5A5] transition-all duration-200 group"
+            >
+              <img
+                class="delete-item-random-57 w-5 h-5 opacity-60 group-hover:opacity-100 transition-opacity duration-200"
+                src="./asstes/Delete.png"
+                alt="Delete"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Job Card 8 -->
+        <div
+          class="bg-white p-6 rounded-xl border border-[#E2E8F0] flex justify-between hover:shadow-md transition-shadow duration-200"
+        >
+          <div class="space-y-4 flex-1">
+            <div>
+              <h2
+                class="text-[#1A2B3C] text-xl font-semibold mb-1 job-title-random-58"
+              >
+                TechCorp Industries
+              </h2>
+              <p class="text-[#4A5568] text-base job-name-random-59">
+                Senior Frontend Developer
+              </p>
+            </div>
+            <p
+              class="text-[#718096] text-sm bg-[#F1F5F9] inline-block px-3 py-1 rounded-full job-salary-random-60"
+            >
+              San Francisco, CA • Full-time • $130,000 - $175,000
+            </p>
+            <div class="space-y-3">
+              <button
+                class="px-4 py-2 bg-[#EFF6FF] rounded-lg text-[#1A2B3C] text-sm font-medium uppercase tracking-wide job-status-random-61"
+              >
+                Not Applied
+              </button>
+              <p
+                class="text-[#4A5568] text-base leading-relaxed job-description-random-62"
+              >
+                We are looking for an experienced Frontend Developer to build
+                scalable web applications using React and TypeScript. You will
+                work with a talented team on cutting-edge projects.
+              </p>
+            </div>
+            <div class="flex gap-3 pt-2">
+              <button
+                class="Interview-btn-random-63 px-5 py-2.5 border-2 border-[#059669] bg-white rounded-lg font-semibold text-sm text-[#059669] uppercase cursor-pointer transition-all duration-200 hover:bg-[#059669] hover:text-white active:scale-95"
+              >
+                Interview
+              </button>
+              <button
+                class="Rejected-btn-random-64 px-5 py-2.5 border-2 border-[#DC2626] bg-white rounded-lg font-semibold text-sm text-[#DC2626] uppercase cursor-pointer transition-all duration-200 hover:bg-[#DC2626] hover:text-white active:scale-95"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+          <div class="ml-6">
+            <div
+              class="w-10 h-10 border-2 border-[#E2E8F0] rounded-full flex justify-center items-center cursor-pointer hover:bg-[#FEE2E2] hover:border-[#FCA5A5] transition-all duration-200 group"
+            >
+              <img
+                class="delete-item-random-65 w-5 h-5 opacity-60 group-hover:opacity-100 transition-opacity duration-200"
+                src="./asstes/Delete.png"
+                alt="Delete"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./script/index.js"></script>
+  </body>
 </html>
